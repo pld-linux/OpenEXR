@@ -1,14 +1,12 @@
 Summary:	High dynamic-range (HDR) image file format support libraries
 Summary(pl):	Biblioteki obs³uguj±ce format plików obrazu o wysokiej dynamice (HDR)
 Name:		OpenEXR
-Version:	1.1.1
-Release:	0.1
+Version:	1.2.1
+Release:	1
 License:	Industrial Light & Magic
 Group:		Libraries
 Source0:	http://savannah.nongnu.org/download/openexr/%{name}-%{version}.tar.gz
-# Source0-md5:	b978f4d61e6de0bd048a0459fc02f789
-Patch0:		%{name}-ac.patch
-Patch1:		%{name}-gcc34.patch
+# Source0-md5:	cb931247581764730fae630f79f4832a
 URL:		http://www.openexr.com/
 BuildRequires:	automake
 BuildRequires:	fltk-gl-devel
@@ -40,6 +38,7 @@ Summary(pl):	Pliki nag³ówkowe bibliotek OpenEXR
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	libstdc++-devel
+Requires:	pkgconfig
 
 %description devel
 Header files for OpenEXR libraries.
@@ -73,8 +72,6 @@ Narzêdzia do obrazów OpenEXR.
 
 %prep
 %setup -q
-%patch0 -p1
-#patch1 -p1
 
 %build
 cp -f /usr/share/automake/config.sub admin
@@ -101,7 +98,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc AUTHORS COPYING ChangeLog NEWS README ReleaseNotes
+%doc AUTHORS COPYING ChangeLog NEWS README
 %attr(755,root,root) %{_libdir}/libHalf.so.*.*.*
 %attr(755,root,root) %{_libdir}/libIex.so.*.*.*
 %attr(755,root,root) %{_libdir}/libIlmImf.so.*.*.*
@@ -121,7 +118,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files progs
 %defattr(644,root,root,755)
-#%attr(755,root,root) %{_bindir}/exrdisplay
+%attr(755,root,root) %{_bindir}/exrdisplay
 %attr(755,root,root) %{_bindir}/exrenvmap
 %attr(755,root,root) %{_bindir}/exrheader
 %attr(755,root,root) %{_bindir}/exrmakepreview
@@ -133,7 +130,10 @@ rm -rf $RPM_BUILD_ROOT
 All persons listed below can be reached at <cvs_login>@pld-linux.org
 
 $Log: OpenEXR.spec,v $
-Revision 1.6  2004-04-27 17:49:22  pluto
+Revision 1.7  2004-08-10 22:10:34  pluto
+- updated to 1.2.1.
+
+Revision 1.6  2004/04/27 17:49:22  pluto
 - updated to 1.1.1 (another development release)
 
 Revision 1.5  2004/04/22 10:03:07  pluto
