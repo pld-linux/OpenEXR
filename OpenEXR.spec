@@ -7,7 +7,8 @@ License:	Industrial Light & Magic
 Group:		Libraries
 Source0:	http://www.openexr.com/downloads/%{name}-%{version}.tar.gz
 # Source0-md5:	716e74c740ef23433ef24bb515afb14f
-Patch0:		%{name}-gcc34.patch
+Patch0:		%{name}-ac.patch
+Patch1:		%{name}-gcc34.patch
 URL:		http://www.openexr.com/
 BuildRequires:	automake
 BuildRequires:	fltk-gl-devel
@@ -73,6 +74,7 @@ Narzêdzia do obrazów OpenEXR.
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
 
 %build
 cp -f /usr/share/automake/config.sub admin
@@ -131,7 +133,10 @@ rm -rf $RPM_BUILD_ROOT
 All persons listed below can be reached at <cvs_login>@pld-linux.org
 
 $Log: OpenEXR.spec,v $
-Revision 1.4  2004-04-01 21:06:16  pluto
+Revision 1.5  2004-04-22 10:03:07  pluto
+- openexr.m4: quote fix.
+
+Revision 1.4  2004/04/01 21:06:16  pluto
 - gcc 3.4 fixes.
 - release 0.2.
 
