@@ -1,12 +1,12 @@
 Summary:	High dynamic-range (HDR) image file format support libraries
 Summary(pl):	Biblioteki obs³uguj±ce format plików obrazu o wysokiej dynamice (HDR)
 Name:		OpenEXR
-Version:	1.2.1
-Release:	2
+Version:	1.2.2
+Release:	1
 License:	Industrial Light & Magic
 Group:		Libraries
 Source0:	http://savannah.nongnu.org/download/openexr/%{name}-%{version}.tar.gz
-# Source0-md5:	cb931247581764730fae630f79f4832a
+# Source0-md5:	a2e56af78dc47c7294ff188c8f78394b
 URL:		http://www.openexr.com/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -131,7 +131,10 @@ rm -rf $RPM_BUILD_ROOT
 All persons listed below can be reached at <cvs_login>@pld-linux.org
 
 $Log: OpenEXR.spec,v $
-Revision 1.10  2004-12-21 19:05:39  qboosh
+Revision 1.11  2005-03-20 15:06:21  qboosh
+- updated to 1.2.2
+
+Revision 1.10  2004/12/21 19:05:39  qboosh
 - release 2
 
 Revision 1.9  2004/10/10 18:40:07  paladine
