@@ -1,0 +1,11 @@
+--- OpenEXR-1.1.0/openexr.m4.orig	2003-10-07 01:22:56.000000000 +0200
++++ OpenEXR-1.1.0/openexr.m4	2004-04-22 11:58:42.025207824 +0200
+@@ -15,7 +15,7 @@
+ dnl OpenEXR
+ dnl
+ 
+-AC_DEFUN(AM_PATH_OPENEXR,
++AC_DEFUN([AM_PATH_OPENEXR],
+ [dnl 
+ dnl Get the cflags and libraries
+ dnl
