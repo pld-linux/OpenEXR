@@ -1,6 +1,5 @@
-
-Summary:	High dynamic-range (HDR) image file format 
-Summary(pl):	TODO
+Summary:	High dynamic-range (HDR) image file format support libraries
+Summary(pl):	Biblioteki obs³uguj±ce format plików obrazu o wysokiej dynamice (HDR)
 Name:		OpenEXR
 Version:	1.1.0
 Release:	0.1
@@ -9,6 +8,7 @@ Group:		Libraries
 Source0:	http://www.openexr.com/downloads/%{name}-%{version}.tar.gz
 # Source0-md5:	716e74c740ef23433ef24bb515afb14f
 URL:		http://www.openexr.com/
+BuildRequires:	automake
 BuildRequires:	fltk-gl-devel
 BuildRequires:	pkgconfig
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -17,55 +17,60 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 OpenEXR is a high dynamic-range (HDR) image file format developed by
 Industrial Light & Magic for use in computer imaging applications.
 OpenEXR is used by ILM on all motion pictures currently in production.
-The first movies to employ OpenEXR were Harry Potter and the Sorcerers Stone,
-Men in Black II, Gangs of New York, and Signs. Since then, OpenEXR has become
-ILM's main image file format. 
+The first movies to employ OpenEXR were Harry Potter and the Sorcerers
+Stone, Men in Black II, Gangs of New York, and Signs. Since then,
+OpenEXR has become ILM's main image file format. 
 
 %description -l pl
-TODO.
+OpenEXR to format plików obrazu o wysokiej dynamice (HDR - High
+Dynamic-Range) stworzony przez Industrial Light & Magic do u¿ywania w
+aplikacjach do grafiki komputerowej. OpenEXR jest u¿ywany przez ILM do
+wszystkich aktualnie produkowanych obrazów ruchomych. Pierwszymi
+filmami wykorzystuj±cymi OpenEXR by³y Harry Potter and the Sorcerers
+Stone, Men in Black II, Gangs of New York oraz Signs. Od tamtego czasu
+OpenEXR sta³ siê g³ównym formatem obrazu ILM.
 
 %package devel
-Summary:	TODO
-Summary(pl):	TODO
+Summary:	Header files for OpenEXR libraries
+Summary(pl):	Pliki nag³ówkowe bibliotek OpenEXR
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 
 %description devel
-TODO.
+Header files for OpenEXR libraries.
 
 %description devel -l pl
-TODO
+Pliki nag³ówkowe bibliotek OpenEXR.
 
 %package static
-Summary:	TODO
-Summary(pl):	TODO
+Summary:	Static OpenEXR libraries
+Summary(pl):	Statyczne biblioteki OpenEXR
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 
 %description static
-TODO.
+Static OpenEXR libraries.
 
 %description static
-TODO
+Statyczne biblioteki OpenEXR.
 
 %package progs
-Summary:	TODO
-Summary(pl):	TODO
-Group:		Development/Libraries
+Summary:	OpenEXR utilities
+Summary(pl):	Narzêdzia do obrazów OpenEXR
+Group:		Applications/Graphics
 Requires:	%{name} = %{version}-%{release}
 
 %description progs
-TODO.
+OpenEXR utilities.
 
 %description progs
-TODO
+Narzêdzia do obrazów OpenEXR.
 
 %prep
 %setup -q
 
 %build
-cp /usr/share/automake/config.sub admin
-
+cp -f /usr/share/automake/config.sub admin
 %{__aclocal}
 %{__libtoolize}
 %{__autoconf}
@@ -97,9 +102,9 @@ rm -rf $RPM_BUILD_ROOT
 
 %files devel
 %defattr(644,root,root,755)
-%{_includedir}/%{name}
+%attr(755,root,root) %{_libdir}/lib*.so
 %{_libdir}/lib*.la
-%{_libdir}/lib*.so
+%{_includedir}/%{name}
 %{_aclocaldir}/*
 %{_pkgconfigdir}/*
 
@@ -121,5 +126,8 @@ rm -rf $RPM_BUILD_ROOT
 All persons listed below can be reached at <cvs_login>@pld-linux.org
 
 $Log: OpenEXR.spec,v $
-Revision 1.1  2004-03-15 19:56:59  adgor
+Revision 1.2  2004-03-15 20:28:19  qboosh
+- pl, cosmetics
+
+Revision 1.1  2004/03/15 19:56:59  adgor
 - Initial
