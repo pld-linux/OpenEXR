@@ -1,12 +1,12 @@
 Summary:	High dynamic-range (HDR) image file format support libraries
 Summary(pl):	Biblioteki obs³uguj±ce format plików obrazu o wysokiej dynamice (HDR)
 Name:		OpenEXR
-Version:	1.1.0
-Release:	0.2
+Version:	1.1.1
+Release:	0.1
 License:	Industrial Light & Magic
 Group:		Libraries
-Source0:	http://www.openexr.com/downloads/%{name}-%{version}.tar.gz
-# Source0-md5:	716e74c740ef23433ef24bb515afb14f
+Source0:	http://savannah.nongnu.org/download/openexr/%{name}-%{version}.tar.gz
+# Source0-md5:	b978f4d61e6de0bd048a0459fc02f789
 Patch0:		%{name}-ac.patch
 Patch1:		%{name}-gcc34.patch
 URL:		http://www.openexr.com/
@@ -74,7 +74,7 @@ Narzêdzia do obrazów OpenEXR.
 %prep
 %setup -q
 %patch0 -p1
-%patch1 -p1
+#patch1 -p1
 
 %build
 cp -f /usr/share/automake/config.sub admin
@@ -121,7 +121,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files progs
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_bindir}/exrdisplay
+#%attr(755,root,root) %{_bindir}/exrdisplay
 %attr(755,root,root) %{_bindir}/exrenvmap
 %attr(755,root,root) %{_bindir}/exrheader
 %attr(755,root,root) %{_bindir}/exrmakepreview
@@ -133,7 +133,10 @@ rm -rf $RPM_BUILD_ROOT
 All persons listed below can be reached at <cvs_login>@pld-linux.org
 
 $Log: OpenEXR.spec,v $
-Revision 1.5  2004-04-22 10:03:07  pluto
+Revision 1.6  2004-04-27 17:49:22  pluto
+- updated to 1.1.1 (another development release)
+
+Revision 1.5  2004/04/22 10:03:07  pluto
 - openexr.m4: quote fix.
 
 Revision 1.4  2004/04/01 21:06:16  pluto
