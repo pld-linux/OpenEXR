@@ -8,9 +8,11 @@ Group:		Libraries
 Source0:	http://savannah.nongnu.org/download/openexr/%{name}-%{version}.tar.gz
 # Source0-md5:	cb931247581764730fae630f79f4832a
 URL:		http://www.openexr.com/
+BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	fltk-gl-devel
 BuildRequires:	libstdc++-devel
+BuildRequires:	libtool
 BuildRequires:	pkgconfig
 BuildRequires:	zlib-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -129,7 +131,10 @@ rm -rf $RPM_BUILD_ROOT
 All persons listed below can be reached at <cvs_login>@pld-linux.org
 
 $Log: OpenEXR.spec,v $
-Revision 1.8  2004-08-22 17:06:31  qboosh
+Revision 1.9  2004-10-10 18:40:07  paladine
+- added missing BR: autoconf, libtool
+
+Revision 1.8  2004/08/22 17:06:31  qboosh
 - pkgconfig is not required to link with libraries
 
 Revision 1.7  2004/08/10 22:10:34  pluto
