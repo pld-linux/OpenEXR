@@ -38,7 +38,6 @@ Summary(pl):	Pliki nag³ówkowe bibliotek OpenEXR
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	libstdc++-devel
-Requires:	pkgconfig
 
 %description devel
 Header files for OpenEXR libraries.
@@ -130,7 +129,10 @@ rm -rf $RPM_BUILD_ROOT
 All persons listed below can be reached at <cvs_login>@pld-linux.org
 
 $Log: OpenEXR.spec,v $
-Revision 1.7  2004-08-10 22:10:34  pluto
+Revision 1.8  2004-08-22 17:06:31  qboosh
+- pkgconfig is not required to link with libraries
+
+Revision 1.7  2004/08/10 22:10:34  pluto
 - updated to 1.2.1.
 
 Revision 1.6  2004/04/27 17:49:22  pluto
