@@ -10,7 +10,9 @@ Source0:	http://www.openexr.com/downloads/%{name}-%{version}.tar.gz
 URL:		http://www.openexr.com/
 BuildRequires:	automake
 BuildRequires:	fltk-gl-devel
+BuildRequires:	libstdc++-devel
 BuildRequires:	pkgconfig
+BuildRequires:	zlib-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -35,6 +37,7 @@ Summary:	Header files for OpenEXR libraries
 Summary(pl):	Pliki nag³ówkowe bibliotek OpenEXR
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
+Requires:	libstdc++-devel
 
 %description devel
 Header files for OpenEXR libraries.
@@ -126,7 +129,10 @@ rm -rf $RPM_BUILD_ROOT
 All persons listed below can be reached at <cvs_login>@pld-linux.org
 
 $Log: OpenEXR.spec,v $
-Revision 1.2  2004-03-15 20:28:19  qboosh
+Revision 1.3  2004-03-16 10:44:42  qboosh
+- more deps
+
+Revision 1.2  2004/03/15 20:28:19  qboosh
 - pl, cosmetics
 
 Revision 1.1  2004/03/15 19:56:59  adgor
