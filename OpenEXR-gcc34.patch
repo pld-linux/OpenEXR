@@ -220,7 +220,7 @@
  	x = 1 + knee (x - 1, 0.184874f);
  
 -    return (unsigned char) (clamp (pow (x, 0.4545f) * 84.66f, 0.f, 255.f));
-+    return (unsigned char) (clamp (pow (x, 0.4545f) * 84.66f, 0.0, 255.0));
++    return (unsigned char) (clamp (pow (x, 0.4545f) * 84.66, 0.0, 255.0));
  }
  
  
