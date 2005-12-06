@@ -7,6 +7,7 @@ License:	Industrial Light & Magic
 Group:		Libraries
 Source0:	http://savannah.nongnu.org/download/openexr/%{name}-%{version}.tar.gz
 # Source0-md5:	a2e56af78dc47c7294ff188c8f78394b
+Patch0:		%{name}-gcc4.patch
 URL:		http://www.openexr.com/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -73,6 +74,7 @@ Narzêdzia do obrazów OpenEXR.
 
 %prep
 %setup -q
+%patch0 -p1
 
 %build
 cp -f /usr/share/automake/config.sub admin
@@ -131,7 +133,10 @@ rm -rf $RPM_BUILD_ROOT
 All persons listed below can be reached at <cvs_login>@pld-linux.org
 
 $Log: OpenEXR.spec,v $
-Revision 1.12  2005-05-05 01:43:22  pluto
+Revision 1.13  2005-12-06 17:40:50  pluto
+- gcc4 fix.
+
+Revision 1.12  2005/05/05 01:43:22  pluto
 - release 2 for Th.
 
 Revision 1.11  2005/03/20 15:06:21  qboosh
