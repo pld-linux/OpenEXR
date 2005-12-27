@@ -2,7 +2,7 @@ Summary:	High dynamic-range (HDR) image file format support libraries
 Summary(pl):	Biblioteki obs³uguj±ce format plików obrazu o wysokiej dynamice (HDR)
 Name:		OpenEXR
 Version:	1.2.2
-Release:	2
+Release:	3
 License:	Industrial Light & Magic
 Group:		Libraries
 Source0:	http://savannah.nongnu.org/download/openexr/%{name}-%{version}.tar.gz
@@ -133,7 +133,10 @@ rm -rf $RPM_BUILD_ROOT
 All persons listed below can be reached at <cvs_login>@pld-linux.org
 
 $Log: OpenEXR.spec,v $
-Revision 1.13  2005-12-06 17:40:50  pluto
+Revision 1.14  2005-12-27 23:11:16  pluto
+- release 3.
+
+Revision 1.13  2005/12/06 17:40:50  pluto
 - gcc4 fix.
 
 Revision 1.12  2005/05/05 01:43:22  pluto
