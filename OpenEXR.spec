@@ -2,12 +2,13 @@ Summary:	High dynamic-range (HDR) image file format support libraries
 Summary(pl):	Biblioteki obs³uguj±ce format plików obrazu o wysokiej dynamice (HDR)
 Name:		OpenEXR
 Version:	1.2.2
-Release:	3
+Release:	4
 License:	Industrial Light & Magic
 Group:		Libraries
 Source0:	http://savannah.nongnu.org/download/openexr/%{name}-%{version}.tar.gz
 # Source0-md5:	a2e56af78dc47c7294ff188c8f78394b
 Patch0:		%{name}-gcc4.patch
+Patch1:		%{name}-libs.patch
 URL:		http://www.openexr.com/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -75,6 +76,7 @@ Narzêdzia do obrazów OpenEXR.
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
 
 %build
 cp -f /usr/share/automake/config.sub admin
