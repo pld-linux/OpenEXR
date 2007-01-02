@@ -1,12 +1,14 @@
 Summary:	High dynamic-range (HDR) image file format support libraries
 Summary(pl):	Biblioteki obs³uguj±ce format plików obrazu o wysokiej dynamice (HDR)
 Name:		OpenEXR
-Version:	1.2.2
-Release:	5
+%define	ver	1.4.0
+%define	sver	a
+Version:	%{ver}.%{sver}
+Release:	1
 License:	Industrial Light & Magic
 Group:		Libraries
-Source0:	http://savannah.nongnu.org/download/openexr/%{name}-%{version}.tar.gz
-# Source0-md5:	a2e56af78dc47c7294ff188c8f78394b
+Source0:	http://download.savannah.nongnu.org/releases/openexr/openexr-%{ver}%{sver}.tar.gz
+# Source0-md5:	d0a4b9a930c766fa51561b05fb204afe
 Patch0:		%{name}-gcc4.patch
 Patch1:		%{name}-libs.patch
 URL:		http://www.openexr.com/
@@ -74,7 +76,7 @@ OpenEXR utilities.
 Narzêdzia do obrazów OpenEXR.
 
 %prep
-%setup -q
+%setup -q -n openexr-%{ver}
 %patch0 -p1
 %patch1 -p1
 
@@ -104,10 +106,7 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc AUTHORS COPYING ChangeLog NEWS README
-%attr(755,root,root) %{_libdir}/libHalf.so.*.*.*
-%attr(755,root,root) %{_libdir}/libIex.so.*.*.*
-%attr(755,root,root) %{_libdir}/libIlmImf.so.*.*.*
-%attr(755,root,root) %{_libdir}/libImath.so.*.*.*
+%attr(755,root,root) %{_libdir}/lib*.so.*
 
 %files devel
 %defattr(644,root,root,755)
