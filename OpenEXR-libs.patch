@@ -1,24 +1,20 @@
-diff -urN OpenEXR-1.2.2.org/IlmImf/Makefile.am OpenEXR-1.2.2/IlmImf/Makefile.am
---- OpenEXR-1.2.2.org/IlmImf/Makefile.am	2004-12-17 03:01:57.000000000 +0100
-+++ OpenEXR-1.2.2/IlmImf/Makefile.am	2006-07-30 19:47:39.140160250 +0200
-@@ -2,6 +2,8 @@
+diff -urN openexr-1.4.0.org/IlmThread/Makefile.am openexr-1.4.0/IlmThread/Makefile.am
+--- openexr-1.4.0.org/IlmThread/Makefile.am	2006-06-08 10:27:41.000000000 +0200
++++ openexr-1.4.0/IlmThread/Makefile.am	2007-01-02 22:05:05.844215500 +0100
+@@ -11,7 +11,7 @@
+ 			  IlmThreadMutexPosix.cpp
  
- lib_LTLIBRARIES = libIlmImf.la
+ libIlmThread_la_LDFLAGS = -version-info @LIBTOOL_VERSION@ -no-undefined
+-libIlmThread_la_LIBADD = ../Iex/libIex.la
++libIlmThread_la_LIBADD = ../Iex/libIex.la -lpthread
  
-+libIlmImf_la_LIBADD = $(top_builddir)/Iex/libIex.la $(top_builddir)/Half/libHalf.la -lz
-+
- libIlmImf_la_SOURCES = ImfAttribute.cpp ImfBoxAttribute.cpp ImfCRgbaFile.cpp \
- 		       ImfChannelList.cpp ImfChannelListAttribute.cpp \
- 		       ImfFloatAttribute.cpp ImfFrameBuffer.cpp \
-diff -urN OpenEXR-1.2.2.org/Imath/Makefile.am OpenEXR-1.2.2/Imath/Makefile.am
---- OpenEXR-1.2.2.org/Imath/Makefile.am	2005-03-08 05:21:53.000000000 +0100
-+++ OpenEXR-1.2.2/Imath/Makefile.am	2006-07-30 19:48:08.738010000 +0200
-@@ -2,6 +2,8 @@
+ libIlmThreadincludedir = $(includedir)/OpenEXR
  
- lib_LTLIBRARIES = libImath.la
+@@ -23,4 +23,4 @@
+ EXTRA_DIST = $(noinst_HEADERS) IlmThreadMutexWin32.cpp IlmThreadSemaphoreWin32.cpp \
+ 	     IlmThreadWin32.cpp
  
-+libImath_la_LIBADD = $(top_builddir)/Iex/libIex.la
-+
- libImath_la_SOURCES = ImathShear.cpp ImathMatrixAlgo.cpp ImathVec.cpp \
- 		      ImathColorAlgo.cpp ImathFun.cpp \
- 		      ImathColorAlgo.h ImathMatrixAlgo.h ImathVec.h \
+-INCLUDES = -I$(top_builddir) -I$(top_srcdir)/Iex -I$(top_srcdir)/config
+\ Brak znaku nowej linii na końcu pliku
++INCLUDES = -I$(top_builddir) -I$(top_srcdir)/Iex -I$(top_srcdir)/config
+
