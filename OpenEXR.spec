@@ -81,12 +81,10 @@ Narzêdzia do obrazów OpenEXR.
 %patch1 -p1
 
 %build
-cp -f /usr/share/automake/config.sub admin
-%{__aclocal}
 %{__libtoolize}
+%{__aclocal}
 %{__autoconf}
 %{__automake}
-
 %configure
 
 %{__make}
@@ -106,19 +104,35 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc AUTHORS COPYING ChangeLog NEWS README
-%attr(755,root,root) %{_libdir}/lib*.so.*
+%attr(755,root,root) %{_libdir}/libHalf.so.*.*.*
+%attr(755,root,root) %{_libdir}/libIex.so.*.*.*
+%attr(755,root,root) %{_libdir}/libIlmImf.so.*.*.*
+%attr(755,root,root) %{_libdir}/libIlmThread.so.*.*.*
+%attr(755,root,root) %{_libdir}/libImath.so.*.*.*
 
 %files devel
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/lib*.so
-%{_libdir}/lib*.la
+%attr(755,root,root) %{_libdir}/libHalf.so
+%attr(755,root,root) %{_libdir}/libIex.so
+%attr(755,root,root) %{_libdir}/libIlmImf.so
+%attr(755,root,root) %{_libdir}/libIlmThread.so
+%attr(755,root,root) %{_libdir}/libImath.so
+%{_libdir}/libHalf.la
+%{_libdir}/libIex.la
+%{_libdir}/libIlmImf.la
+%{_libdir}/libIlmThread.la
+%{_libdir}/libImath.la
 %{_includedir}/%{name}
-%{_aclocaldir}/*
-%{_pkgconfigdir}/*
+%{_aclocaldir}/openexr.m4
+%{_pkgconfigdir}/OpenEXR.pc
 
 %files static
 %defattr(644,root,root,755)
-%{_libdir}/lib*.a
+%{_libdir}/libHalf.a
+%{_libdir}/libIex.a
+%{_libdir}/libIlmImf.a
+%{_libdir}/libIlmThread.a
+%{_libdir}/libImath.a
 
 %files progs
 %defattr(644,root,root,755)
