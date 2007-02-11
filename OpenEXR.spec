@@ -60,7 +60,7 @@ Requires:	%{name}-devel = %{version}-%{release}
 %description static
 Static OpenEXR libraries.
 
-%description static
+%description static -l pl
 Statyczne biblioteki OpenEXR.
 
 %package progs
@@ -72,7 +72,7 @@ Requires:	%{name} = %{version}-%{release}
 %description progs
 OpenEXR utilities.
 
-%description progs
+%description progs -l pl
 Narzêdzia do obrazów OpenEXR.
 
 %prep
