@@ -1,5 +1,5 @@
 Summary:	High dynamic-range (HDR) image file format support libraries
-Summary(pl.UTF-8):   Biblioteki obsługujące format plików obrazu o wysokiej dynamice (HDR)
+Summary(pl.UTF-8):	Biblioteki obsługujące format plików obrazu o wysokiej dynamice (HDR)
 Name:		OpenEXR
 %define	ver	1.4.0
 %define	sver	a
@@ -40,7 +40,7 @@ OpenEXR stał się głównym formatem obrazu ILM.
 
 %package devel
 Summary:	Header files for OpenEXR libraries
-Summary(pl.UTF-8):   Pliki nagłówkowe bibliotek OpenEXR
+Summary(pl.UTF-8):	Pliki nagłówkowe bibliotek OpenEXR
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	libstdc++-devel
@@ -53,7 +53,7 @@ Pliki nagłówkowe bibliotek OpenEXR.
 
 %package static
 Summary:	Static OpenEXR libraries
-Summary(pl.UTF-8):   Statyczne biblioteki OpenEXR
+Summary(pl.UTF-8):	Statyczne biblioteki OpenEXR
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 
@@ -65,7 +65,7 @@ Statyczne biblioteki OpenEXR.
 
 %package progs
 Summary:	OpenEXR utilities
-Summary(pl.UTF-8):   Narzędzia do obrazów OpenEXR
+Summary(pl.UTF-8):	Narzędzia do obrazów OpenEXR
 Group:		Applications/Graphics
 Requires:	%{name} = %{version}-%{release}
 
