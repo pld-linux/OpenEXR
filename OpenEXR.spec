@@ -1,5 +1,5 @@
 Summary:	High dynamic-range (HDR) image file format support libraries
-Summary(pl):	Biblioteki obs³uguj±ce format plików obrazu o wysokiej dynamice (HDR)
+Summary(pl.UTF-8):   Biblioteki obsÅ‚ugujÄ…ce format plikÃ³w obrazu o wysokiej dynamice (HDR)
 Name:		OpenEXR
 %define	ver	1.4.0
 %define	sver	a
@@ -29,18 +29,18 @@ The first movies to employ OpenEXR were Harry Potter and the Sorcerers
 Stone, Men in Black II, Gangs of New York, and Signs. Since then,
 OpenEXR has become ILM's main image file format.
 
-%description -l pl
-OpenEXR to format plików obrazu o wysokiej dynamice (HDR - High
-Dynamic-Range) stworzony przez Industrial Light & Magic do u¿ywania w
-aplikacjach do grafiki komputerowej. OpenEXR jest u¿ywany przez ILM do
-wszystkich aktualnie produkowanych obrazów ruchomych. Pierwszymi
-filmami wykorzystuj±cymi OpenEXR by³y Harry Potter and the Sorcerers
+%description -l pl.UTF-8
+OpenEXR to format plikÃ³w obrazu o wysokiej dynamice (HDR - High
+Dynamic-Range) stworzony przez Industrial Light & Magic do uÅ¼ywania w
+aplikacjach do grafiki komputerowej. OpenEXR jest uÅ¼ywany przez ILM do
+wszystkich aktualnie produkowanych obrazÃ³w ruchomych. Pierwszymi
+filmami wykorzystujÄ…cymi OpenEXR byÅ‚y Harry Potter and the Sorcerers
 Stone, Men in Black II, Gangs of New York oraz Signs. Od tamtego czasu
-OpenEXR sta³ siê g³ównym formatem obrazu ILM.
+OpenEXR staÅ‚ siÄ™ gÅ‚Ã³wnym formatem obrazu ILM.
 
 %package devel
 Summary:	Header files for OpenEXR libraries
-Summary(pl):	Pliki nag³ówkowe bibliotek OpenEXR
+Summary(pl.UTF-8):   Pliki nagÅ‚Ã³wkowe bibliotek OpenEXR
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	libstdc++-devel
@@ -48,32 +48,32 @@ Requires:	libstdc++-devel
 %description devel
 Header files for OpenEXR libraries.
 
-%description devel -l pl
-Pliki nag³ówkowe bibliotek OpenEXR.
+%description devel -l pl.UTF-8
+Pliki nagÅ‚Ã³wkowe bibliotek OpenEXR.
 
 %package static
 Summary:	Static OpenEXR libraries
-Summary(pl):	Statyczne biblioteki OpenEXR
+Summary(pl.UTF-8):   Statyczne biblioteki OpenEXR
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 
 %description static
 Static OpenEXR libraries.
 
-%description static -l pl
+%description static -l pl.UTF-8
 Statyczne biblioteki OpenEXR.
 
 %package progs
 Summary:	OpenEXR utilities
-Summary(pl):	Narzêdzia do obrazów OpenEXR
+Summary(pl.UTF-8):   NarzÄ™dzia do obrazÃ³w OpenEXR
 Group:		Applications/Graphics
 Requires:	%{name} = %{version}-%{release}
 
 %description progs
 OpenEXR utilities.
 
-%description progs -l pl
-Narzêdzia do obrazów OpenEXR.
+%description progs -l pl.UTF-8
+NarzÄ™dzia do obrazÃ³w OpenEXR.
 
 %prep
 %setup -q -n openexr-%{ver}
