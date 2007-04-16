@@ -4,7 +4,7 @@ Name:		OpenEXR
 %define	ver	1.4.0
 %define	sver	a
 Version:	%{ver}.%{sver}
-Release:	1
+Release:	2
 License:	Industrial Light & Magic
 Group:		Libraries
 Source0:	http://download.savannah.nongnu.org/releases/openexr/openexr-%{ver}%{sver}.tar.gz
