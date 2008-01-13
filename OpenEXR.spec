@@ -1,24 +1,21 @@
 Summary:	High dynamic-range (HDR) image file format support libraries
 Summary(pl.UTF-8):	Biblioteki obsługujące format plików obrazu o wysokiej dynamice (HDR)
 Name:		OpenEXR
-%define	ver	1.4.0
-%define	sver	a
-Version:	%{ver}.%{sver}
-Release:	2
-License:	Industrial Light & Magic
+Version:	1.6.1
+Release:	1
+License:	BSD
 Group:		Libraries
-Source0:	http://download.savannah.nongnu.org/releases/openexr/openexr-%{ver}%{sver}.tar.gz
-# Source0-md5:	d0a4b9a930c766fa51561b05fb204afe
-Patch0:		%{name}-gcc4.patch
-Patch1:		%{name}-libs.patch
+Source0:	http://download.savannah.nongnu.org/releases/openexr/openexr-%{version}.tar.gz
+# Source0-md5:	11951f164f9c872b183df75e66de145a
 URL:		http://www.openexr.com/
-BuildRequires:	autoconf
-BuildRequires:	automake
-BuildRequires:	fltk-gl-devel
+BuildRequires:	autoconf >= 2.50
+BuildRequires:	automake >= 1.6.3
+BuildRequires:	ilmbase-devel >= 1.0.1
 BuildRequires:	libstdc++-devel
 BuildRequires:	libtool
 BuildRequires:	pkgconfig
 BuildRequires:	zlib-devel
+Requires:	ilmbase >= 1.0.1
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -43,7 +40,9 @@ Summary:	Header files for OpenEXR libraries
 Summary(pl.UTF-8):	Pliki nagłówkowe bibliotek OpenEXR
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
+Requires:	ilmbase-devel >= 1.0.1
 Requires:	libstdc++-devel
+Requires:	zlib-devel
 
 %description devel
 Header files for OpenEXR libraries.
@@ -76,13 +75,11 @@ OpenEXR utilities.
 Narzędzia do obrazów OpenEXR.
 
 %prep
-%setup -q -n openexr-%{ver}
-%patch0 -p1
-%patch1 -p1
+%setup -q -n openexr-%{version}
 
 %build
 %{__libtoolize}
-%{__aclocal}
+%{__aclocal} -I m4
 %{__autoconf}
 %{__automake}
 %configure
@@ -104,39 +101,24 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc AUTHORS COPYING ChangeLog NEWS README
-%attr(755,root,root) %{_libdir}/libHalf.so.*.*.*
-%attr(755,root,root) %{_libdir}/libIex.so.*.*.*
 %attr(755,root,root) %{_libdir}/libIlmImf.so.*.*.*
-%attr(755,root,root) %{_libdir}/libIlmThread.so.*.*.*
-%attr(755,root,root) %{_libdir}/libImath.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libIlmImf.so.6
 
 %files devel
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libHalf.so
-%attr(755,root,root) %{_libdir}/libIex.so
 %attr(755,root,root) %{_libdir}/libIlmImf.so
-%attr(755,root,root) %{_libdir}/libIlmThread.so
-%attr(755,root,root) %{_libdir}/libImath.so
-%{_libdir}/libHalf.la
-%{_libdir}/libIex.la
 %{_libdir}/libIlmImf.la
-%{_libdir}/libIlmThread.la
-%{_libdir}/libImath.la
-%{_includedir}/%{name}
+%{_includedir}/OpenEXR/Imf*.h
+%{_includedir}/OpenEXR/OpenEXRConfig.h
 %{_aclocaldir}/openexr.m4
 %{_pkgconfigdir}/OpenEXR.pc
 
 %files static
 %defattr(644,root,root,755)
-%{_libdir}/libHalf.a
-%{_libdir}/libIex.a
 %{_libdir}/libIlmImf.a
-%{_libdir}/libIlmThread.a
-%{_libdir}/libImath.a
 
 %files progs
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_bindir}/exrdisplay
 %attr(755,root,root) %{_bindir}/exrenvmap
 %attr(755,root,root) %{_bindir}/exrheader
 %attr(755,root,root) %{_bindir}/exrmakepreview
