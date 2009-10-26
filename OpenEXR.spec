@@ -7,6 +7,7 @@ License:	BSD
 Group:		Libraries
 Source0:	http://download.savannah.nongnu.org/releases/openexr/openexr-%{version}.tar.gz
 # Source0-md5:	11951f164f9c872b183df75e66de145a
+Patch0:		gcc4.patch
 URL:		http://www.openexr.com/
 BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake >= 1.6.3
@@ -76,6 +77,7 @@ Narzędzia do obrazów OpenEXR.
 
 %prep
 %setup -q -n openexr-%{version}
+%patch0 -p1
 
 %build
 %{__libtoolize}
