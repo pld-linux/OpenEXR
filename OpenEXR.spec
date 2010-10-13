@@ -1,22 +1,23 @@
 Summary:	High dynamic-range (HDR) image file format support libraries
 Summary(pl.UTF-8):	Biblioteki obsługujące format plików obrazu o wysokiej dynamice (HDR)
 Name:		OpenEXR
-Version:	1.6.1
-Release:	2
+Version:	1.7.0
+Release:	1
 License:	BSD
 Group:		Libraries
 Source0:	http://download.savannah.nongnu.org/releases/openexr/openexr-%{version}.tar.gz
-# Source0-md5:	11951f164f9c872b183df75e66de145a
-Patch0:		gcc4.patch
+# Source0-md5:	27113284f7d26a58f853c346e0851d7a
+#Patch0:		gcc4.patch
+Patch0:		%{name}-gcc4.patch
 URL:		http://www.openexr.com/
 BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake >= 1.6.3
-BuildRequires:	ilmbase-devel >= 1.0.1
+BuildRequires:	ilmbase-devel >= 1.0.2
 BuildRequires:	libstdc++-devel
 BuildRequires:	libtool
 BuildRequires:	pkgconfig
 BuildRequires:	zlib-devel
-Requires:	ilmbase >= 1.0.1
+Requires:	ilmbase >= 1.0.2
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -41,7 +42,7 @@ Summary:	Header files for OpenEXR libraries
 Summary(pl.UTF-8):	Pliki nagłówkowe bibliotek OpenEXR
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
-Requires:	ilmbase-devel >= 1.0.1
+Requires:	ilmbase-devel >= 1.0.2
 Requires:	libstdc++-devel
 Requires:	zlib-devel
 
@@ -121,8 +122,10 @@ rm -rf $RPM_BUILD_ROOT
 
 %files progs
 %defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/exr2aces
 %attr(755,root,root) %{_bindir}/exrenvmap
 %attr(755,root,root) %{_bindir}/exrheader
 %attr(755,root,root) %{_bindir}/exrmakepreview
 %attr(755,root,root) %{_bindir}/exrmaketiled
+%attr(755,root,root) %{_bindir}/exrmultiview
 %attr(755,root,root) %{_bindir}/exrstdattr
