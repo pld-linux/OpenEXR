@@ -1,23 +1,22 @@
 Summary:	High dynamic-range (HDR) image file format support libraries
 Summary(pl.UTF-8):	Biblioteki obsługujące format plików obrazu o wysokiej dynamice (HDR)
 Name:		OpenEXR
-Version:	1.7.0
+Version:	2.0.0
 Release:	1
 License:	BSD
 Group:		Libraries
 Source0:	http://download.savannah.nongnu.org/releases/openexr/openexr-%{version}.tar.gz
-# Source0-md5:	27113284f7d26a58f853c346e0851d7a
-#Patch0:		gcc4.patch
-Patch0:		%{name}-gcc4.patch
+# Source0-md5:	00e9e93348f072c0bc1bdee7464d500d
+Patch0:		%{name}-am.patch
 URL:		http://www.openexr.com/
 BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake >= 1.6.3
-BuildRequires:	ilmbase-devel >= 1.0.2
+BuildRequires:	ilmbase-devel >= 2.0.0
 BuildRequires:	libstdc++-devel
-BuildRequires:	libtool
+BuildRequires:	libtool >= 2:1.5
 BuildRequires:	pkgconfig
 BuildRequires:	zlib-devel
-Requires:	ilmbase >= 1.0.2
+Requires:	ilmbase >= 2.0.0
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -42,7 +41,7 @@ Summary:	Header files for OpenEXR libraries
 Summary(pl.UTF-8):	Pliki nagłówkowe bibliotek OpenEXR
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
-Requires:	ilmbase-devel >= 1.0.2
+Requires:	ilmbase-devel >= 2.0.0
 Requires:	libstdc++-devel
 Requires:	zlib-devel
 
@@ -104,8 +103,8 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc AUTHORS COPYING ChangeLog NEWS README
-%attr(755,root,root) %{_libdir}/libIlmImf.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libIlmImf.so.6
+%attr(755,root,root) %{_libdir}/libIlmImf-Imf_2_0.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libIlmImf-Imf_2_0.so.20
 
 %files devel
 %defattr(644,root,root,755)
@@ -122,10 +121,10 @@ rm -rf $RPM_BUILD_ROOT
 
 %files progs
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_bindir}/exr2aces
 %attr(755,root,root) %{_bindir}/exrenvmap
 %attr(755,root,root) %{_bindir}/exrheader
 %attr(755,root,root) %{_bindir}/exrmakepreview
 %attr(755,root,root) %{_bindir}/exrmaketiled
+%attr(755,root,root) %{_bindir}/exrmultipart
 %attr(755,root,root) %{_bindir}/exrmultiview
 %attr(755,root,root) %{_bindir}/exrstdattr

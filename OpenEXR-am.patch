@@ -1,0 +1,11 @@
+--- openexr-2.0.0/configure.ac.orig	2013-03-14 17:57:54.000000000 +0100
++++ openexr-2.0.0/configure.ac	2013-03-27 21:40:10.626909806 +0100
+@@ -11,7 +11,7 @@
+ 
+ AC_CANONICAL_HOST
+ AC_CONFIG_SRCDIR(IlmImfTest/main.cpp)
+-AM_CONFIG_HEADER(config/OpenEXRConfig.h)
++AC_CONFIG_HEADERS(config/OpenEXRConfig.h)
+ AM_INIT_AUTOMAKE(1.6.3)  dnl Require automake 1.6.3 or better
+ AM_MAINTAINER_MODE
+ 
