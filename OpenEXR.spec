@@ -75,6 +75,17 @@ OpenEXR utilities.
 %description progs -l pl.UTF-8
 Narzędzia do obrazów OpenEXR.
 
+%package doc
+Summary:	OpenEXR documentation
+Summary(pl.UTF-8):	Dokumentacja do OpenEXR
+Group:		Documentation
+
+%description doc
+OpenEXR documentation describing file format, library etc.
+
+%description doc -l pl.UTF-8
+Dokumentacja do OpenEXR, opisująca format pliku, bibliotekę itd.
+
 %prep
 %setup -q -n openexr-%{version}
 %patch0 -p1
@@ -93,6 +104,9 @@ rm -rf $RPM_BUILD_ROOT
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
+
+# PDFs packaged as %doc
+%{__rm} -r $RPM_BUILD_ROOT%{_docdir}/%{name}-%{version}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -128,3 +142,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/exrmultipart
 %attr(755,root,root) %{_bindir}/exrmultiview
 %attr(755,root,root) %{_bindir}/exrstdattr
+
+%files doc
+%defattr(644,root,root,755)
+%doc doc/*.pdf
