@@ -1,13 +1,12 @@
 Summary:	High dynamic-range (HDR) image file format support libraries
 Summary(pl.UTF-8):	Biblioteki obsługujące format plików obrazu o wysokiej dynamice (HDR)
 Name:		OpenEXR
-Version:	2.0.0
+Version:	2.0.1
 Release:	1
 License:	BSD
 Group:		Libraries
 Source0:	http://download.savannah.nongnu.org/releases/openexr/openexr-%{version}.tar.gz
-# Source0-md5:	00e9e93348f072c0bc1bdee7464d500d
-Patch0:		%{name}-am.patch
+# Source0-md5:	4387e6050d2faa65dd5215618ff2ddce
 URL:		http://www.openexr.com/
 BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake >= 1.6.3
@@ -88,7 +87,6 @@ Dokumentacja do OpenEXR, opisująca format pliku, bibliotekę itd.
 
 %prep
 %setup -q -n openexr-%{version}
-%patch0 -p1
 
 %build
 %{__libtoolize}
