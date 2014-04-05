@@ -1,21 +1,21 @@
 Summary:	High dynamic-range (HDR) image file format support libraries
 Summary(pl.UTF-8):	Biblioteki obsługujące format plików obrazu o wysokiej dynamice (HDR)
 Name:		OpenEXR
-Version:	2.0.1
+Version:	2.1.0
 Release:	1
 License:	BSD
 Group:		Libraries
-Source0:	http://download.savannah.nongnu.org/releases/openexr/openexr-%{version}.tar.gz
-# Source0-md5:	4387e6050d2faa65dd5215618ff2ddce
+Source0:	http://download.savannah.gnu.org/releases/openexr/openexr-%{version}.tar.gz
+# Source0-md5:	33735d37d2ee01c6d8fbd0df94fb8b43
 URL:		http://www.openexr.com/
 BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake >= 1.6.3
-BuildRequires:	ilmbase-devel >= 2.0.0
+BuildRequires:	ilmbase-devel >= 2.1.0
 BuildRequires:	libstdc++-devel
 BuildRequires:	libtool >= 2:1.5
 BuildRequires:	pkgconfig
 BuildRequires:	zlib-devel
-Requires:	ilmbase >= 2.0.0
+Requires:	ilmbase >= 2.1.0
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -40,7 +40,7 @@ Summary:	Header files for OpenEXR libraries
 Summary(pl.UTF-8):	Pliki nagłówkowe bibliotek OpenEXR
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
-Requires:	ilmbase-devel >= 2.0.0
+Requires:	ilmbase-devel >= 2.1.0
 Requires:	libstdc++-devel
 Requires:	zlib-devel
 
@@ -115,8 +115,8 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc AUTHORS COPYING ChangeLog NEWS README
-%attr(755,root,root) %{_libdir}/libIlmImf-Imf_2_0.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libIlmImf-Imf_2_0.so.20
+%attr(755,root,root) %{_libdir}/libIlmImf-Imf_2_1.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libIlmImf-Imf_2_1.so.21
 
 %files devel
 %defattr(644,root,root,755)
