@@ -1,21 +1,22 @@
 Summary:	High dynamic-range (HDR) image file format support libraries
 Summary(pl.UTF-8):	Biblioteki obsługujące format plików obrazu o wysokiej dynamice (HDR)
 Name:		OpenEXR
-Version:	2.1.0
+Version:	2.2.0
 Release:	1
 License:	BSD
 Group:		Libraries
 Source0:	http://download.savannah.gnu.org/releases/openexr/openexr-%{version}.tar.gz
-# Source0-md5:	33735d37d2ee01c6d8fbd0df94fb8b43
+# Source0-md5:	b64e931c82aa3790329c21418373db4e
+Patch0:		%{name}-build.patch
 URL:		http://www.openexr.com/
 BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake >= 1.6.3
-BuildRequires:	ilmbase-devel >= 2.1.0
+BuildRequires:	ilmbase-devel >= 2.2.0
 BuildRequires:	libstdc++-devel
 BuildRequires:	libtool >= 2:1.5
 BuildRequires:	pkgconfig
 BuildRequires:	zlib-devel
-Requires:	ilmbase >= 2.1.0
+Requires:	ilmbase >= 2.2.0
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -40,7 +41,7 @@ Summary:	Header files for OpenEXR libraries
 Summary(pl.UTF-8):	Pliki nagłówkowe bibliotek OpenEXR
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
-Requires:	ilmbase-devel >= 2.1.0
+Requires:	ilmbase-devel >= 2.2.0
 Requires:	libstdc++-devel
 Requires:	zlib-devel
 
@@ -87,6 +88,7 @@ Dokumentacja do OpenEXR, opisująca format pliku, bibliotekę itd.
 
 %prep
 %setup -q -n openexr-%{version}
+%patch0 -p1
 
 %build
 %{__libtoolize}
@@ -115,13 +117,17 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc AUTHORS COPYING ChangeLog NEWS README
-%attr(755,root,root) %{_libdir}/libIlmImf-Imf_2_1.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libIlmImf-Imf_2_1.so.21
+%attr(755,root,root) %{_libdir}/libIlmImf-2_2.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libIlmImf-2_2.so.22
+%attr(755,root,root) %{_libdir}/libIlmImfUtil-2_2.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libIlmImfUtil-2_2.so.22
 
 %files devel
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libIlmImf.so
+%attr(755,root,root) %{_libdir}/libIlmImfUtil.so
 %{_libdir}/libIlmImf.la
+%{_libdir}/libIlmImfUtil.la
 %{_includedir}/OpenEXR/Imf*.h
 %{_includedir}/OpenEXR/OpenEXRConfig.h
 %{_aclocaldir}/openexr.m4
@@ -130,6 +136,7 @@ rm -rf $RPM_BUILD_ROOT
 %files static
 %defattr(644,root,root,755)
 %{_libdir}/libIlmImf.a
+%{_libdir}/libIlmImfUtil.a
 
 %files progs
 %defattr(644,root,root,755)
