@@ -1,22 +1,21 @@
 Summary:	High dynamic-range (HDR) image file format support libraries
 Summary(pl.UTF-8):	Biblioteki obsługujące format plików obrazu o wysokiej dynamice (HDR)
 Name:		OpenEXR
-Version:	2.2.1
+Version:	2.3.0
 Release:	1
 License:	BSD
 Group:		Libraries
-Source0:	http://download.savannah.gnu.org/releases/openexr/openexr-%{version}.tar.gz
-# Source0-md5:	421815c32989e1b98fc4798ee754c433
-Patch0:		%{name}-build.patch
+Source0:	https://github.com/AcademySoftwareFoundation/openexr/releases/download/v%{version}/openexr-%{version}.tar.gz
+# Source0-md5:	a157e8a46596bc185f2472a5a4682174
 URL:		http://www.openexr.com/
 BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake >= 1.6.3
-BuildRequires:	ilmbase-devel >= 2.2.1
+BuildRequires:	ilmbase-devel >= 2.3.0
 BuildRequires:	libstdc++-devel
 BuildRequires:	libtool >= 2:1.5
 BuildRequires:	pkgconfig
 BuildRequires:	zlib-devel
-Requires:	ilmbase >= 2.2.1
+Requires:	ilmbase >= 2.3.0
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -41,7 +40,7 @@ Summary:	Header files for OpenEXR libraries
 Summary(pl.UTF-8):	Pliki nagłówkowe bibliotek OpenEXR
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
-Requires:	ilmbase-devel >= 2.2.1
+Requires:	ilmbase-devel >= 2.3.0
 Requires:	libstdc++-devel
 Requires:	zlib-devel
 
@@ -88,7 +87,6 @@ Dokumentacja do OpenEXR, opisująca format pliku, bibliotekę itd.
 
 %prep
 %setup -q -n openexr-%{version}
-%patch0 -p1
 
 %build
 %{__libtoolize}
@@ -105,9 +103,6 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-# PDFs packaged as %doc
-%{__rm} -r $RPM_BUILD_ROOT%{_docdir}/%{name}-%{version}
-
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -116,11 +111,10 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc AUTHORS COPYING ChangeLog NEWS README
-%attr(755,root,root) %{_libdir}/libIlmImf-2_2.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libIlmImf-2_2.so.23
-%attr(755,root,root) %{_libdir}/libIlmImfUtil-2_2.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libIlmImfUtil-2_2.so.23
+%attr(755,root,root) %{_libdir}/libIlmImf-2_3.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libIlmImf-2_3.so.24
+%attr(755,root,root) %{_libdir}/libIlmImfUtil-2_3.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libIlmImfUtil-2_3.so.24
 
 %files devel
 %defattr(644,root,root,755)
