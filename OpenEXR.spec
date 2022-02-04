@@ -12,7 +12,7 @@ URL:		https://www.openexr.com/
 BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake >= 1.6.3
 BuildRequires:	ilmbase-devel >= 2.3.0
-BuildRequires:	libstdc++-devel
+BuildRequires:	libstdc++-devel >= 6:5
 BuildRequires:	libtool >= 2:1.5
 BuildRequires:	pkgconfig
 BuildRequires:	zlib-devel
@@ -42,7 +42,7 @@ Summary(pl.UTF-8):	Pliki nagłówkowe bibliotek OpenEXR
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	ilmbase-devel >= 2.3.0
-Requires:	libstdc++-devel
+Requires:	libstdc++-devel >= 6:5
 Requires:	zlib-devel
 
 %description devel
