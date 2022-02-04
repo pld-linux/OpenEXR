@@ -5,9 +5,10 @@ Version:	2.3.0
 Release:	1
 License:	BSD
 Group:		Libraries
+#Source0Download: https://github.com/AcademySoftwareFoundation/openexr/releases
 Source0:	https://github.com/AcademySoftwareFoundation/openexr/releases/download/v%{version}/openexr-%{version}.tar.gz
 # Source0-md5:	a157e8a46596bc185f2472a5a4682174
-URL:		http://www.openexr.com/
+URL:		https://www.openexr.com/
 BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake >= 1.6.3
 BuildRequires:	ilmbase-devel >= 2.3.0
@@ -111,6 +112,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
+%doc AUTHORS ChangeLog LICENSE PATENTS README.md
 %attr(755,root,root) %{_libdir}/libIlmImf-2_3.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/libIlmImf-2_3.so.24
 %attr(755,root,root) %{_libdir}/libIlmImfUtil-2_3.so.*.*.*
