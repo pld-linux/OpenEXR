@@ -1,23 +1,23 @@
 Summary:	High dynamic-range (HDR) image file format support libraries
 Summary(pl.UTF-8):	Biblioteki obsługujące format plików obrazu o wysokiej dynamice (HDR)
 Name:		OpenEXR
-Version:	2.3.0
-Release:	2
+Version:	3.1.4
+Release:	1
 License:	BSD
 Group:		Libraries
 #Source0Download: https://github.com/AcademySoftwareFoundation/openexr/releases
-Source0:	https://github.com/AcademySoftwareFoundation/openexr/releases/download/v%{version}/openexr-%{version}.tar.gz
-# Source0-md5:	a157e8a46596bc185f2472a5a4682174
+Source0:	https://github.com/AcademySoftwareFoundation/openexr/archive/v%{version}/openexr-%{version}.tar.gz
+# Source0-md5:	e990be1ff765797bc2d93a8060e1c1f2
 URL:		https://www.openexr.com/
 BuildRequires:	Imath-devel
 BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake >= 1.6.3
-BuildRequires:	ilmbase-devel >= 2.3.0
 BuildRequires:	libstdc++-devel >= 6:5
 BuildRequires:	libtool >= 2:1.5
 BuildRequires:	pkgconfig
+BuildRequires:	python3-breathe
 BuildRequires:	zlib-devel
-Requires:	ilmbase >= 2.3.0
+Obsoletes:	ilmbase < 2.5.3
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -42,27 +42,16 @@ Summary:	Header files for OpenEXR libraries
 Summary(pl.UTF-8):	Pliki nagłówkowe bibliotek OpenEXR
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
-Requires:	ilmbase-devel >= 2.3.0
 Requires:	libstdc++-devel >= 6:5
 Requires:	zlib-devel
+Provides:	ilmbase-devel = %{version}-%{release}
+Obsoletes:	ilmbase-devel < 2.5.3
 
 %description devel
 Header files for OpenEXR libraries.
 
 %description devel -l pl.UTF-8
 Pliki nagłówkowe bibliotek OpenEXR.
-
-%package static
-Summary:	Static OpenEXR libraries
-Summary(pl.UTF-8):	Statyczne biblioteki OpenEXR
-Group:		Development/Libraries
-Requires:	%{name}-devel = %{version}-%{release}
-
-%description static
-Static OpenEXR libraries.
-
-%description static -l pl.UTF-8
-Statyczne biblioteki OpenEXR.
 
 %package progs
 Summary:	OpenEXR utilities
@@ -91,19 +80,20 @@ Dokumentacja do OpenEXR, opisująca format pliku, bibliotekę itd.
 %setup -q -n openexr-%{version}
 
 %build
-%{__libtoolize}
-%{__aclocal} -I m4
-%{__autoconf}
-%{__automake}
-%configure
+mkdir -p build
+cd build
+%cmake .. \
+	-DDOCS=ON
 
 %{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
-%{__make} install \
+%{__make} -C build install \
 	DESTDIR=$RPM_BUILD_ROOT
+
+%{__rm} -r $RPM_BUILD_ROOT%{_docdir}/{examples,sphinx}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -113,27 +103,26 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc AUTHORS ChangeLog LICENSE PATENTS README.md
-%attr(755,root,root) %{_libdir}/libIlmImf-2_3.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libIlmImf-2_3.so.24
-%attr(755,root,root) %{_libdir}/libIlmImfUtil-2_3.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libIlmImfUtil-2_3.so.24
+%doc CHANGES.md CODEOWNERS LICENSE.md PATENTS README.md SECURITY.md
+%attr(755,root,root) %{_libdir}/libIex-3_1.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libIex-3_1.so.30
+%attr(755,root,root) %{_libdir}/libIlmThread-3_1.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libIlmThread-3_1.so.30
+%attr(755,root,root) %{_libdir}/libOpenEXR-3_1.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libOpenEXR-3_1.so.30
+%attr(755,root,root) %{_libdir}/libOpenEXRCore-3_1.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libOpenEXRCore-3_1.so.30
+%attr(755,root,root) %{_libdir}/libOpenEXRUtil-3_1.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libOpenEXRUtil-3_1.so.30
 
 %files devel
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libIlmImf.so
-%attr(755,root,root) %{_libdir}/libIlmImfUtil.so
-%{_libdir}/libIlmImf.la
-%{_libdir}/libIlmImfUtil.la
-%{_includedir}/OpenEXR/Imf*.h
-%{_includedir}/OpenEXR/OpenEXRConfig.h
-%{_aclocaldir}/openexr.m4
+%attr(755,root,root) %{_libdir}/libIex*.so
+%attr(755,root,root) %{_libdir}/libIlmThread*.so
+%attr(755,root,root) %{_libdir}/libOpenEXR*.so
+%{_includedir}/OpenEXR
 %{_pkgconfigdir}/OpenEXR.pc
-
-%files static
-%defattr(644,root,root,755)
-%{_libdir}/libIlmImf.a
-%{_libdir}/libIlmImfUtil.a
+%{_libdir}/cmake/OpenEXR
 
 %files progs
 %defattr(644,root,root,755)
@@ -144,7 +133,10 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/exrmultipart
 %attr(755,root,root) %{_bindir}/exrmultiview
 %attr(755,root,root) %{_bindir}/exrstdattr
+%attr(755,root,root) %{_bindir}/exr2aces
+%attr(755,root,root) %{_bindir}/exrinfo
 
 %files doc
 %defattr(644,root,root,755)
-%doc doc/*.pdf
+%doc build/docs/sphinx/*
+%doc build/docs/sphinx/.doctrees
