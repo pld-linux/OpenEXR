@@ -2,13 +2,14 @@ Summary:	High dynamic-range (HDR) image file format support libraries
 Summary(pl.UTF-8):	Biblioteki obsługujące format plików obrazu o wysokiej dynamice (HDR)
 Name:		OpenEXR
 Version:	2.3.0
-Release:	1
+Release:	2
 License:	BSD
 Group:		Libraries
 #Source0Download: https://github.com/AcademySoftwareFoundation/openexr/releases
 Source0:	https://github.com/AcademySoftwareFoundation/openexr/releases/download/v%{version}/openexr-%{version}.tar.gz
 # Source0-md5:	a157e8a46596bc185f2472a5a4682174
 URL:		https://www.openexr.com/
+BuildRequires:	Imath-devel
 BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake >= 1.6.3
 BuildRequires:	ilmbase-devel >= 2.3.0
