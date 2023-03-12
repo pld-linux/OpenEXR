@@ -1,0 +1,35 @@
+--- openexr-2.4.3/PyIlmBase/PyImathNumpy/CMakeLists.txt.orig	2021-05-17 04:53:08.000000000 +0200
++++ openexr-2.4.3/PyIlmBase/PyImathNumpy/CMakeLists.txt	2023-03-12 15:55:54.058380105 +0100
+@@ -24,6 +24,7 @@ if(TARGET Python2::Python AND
+     LIBRARY_OUTPUT_NAME "imathnumpy"
+     DEBUG_POSTFIX ""
+   )
++  install(TARGETS imathnumpy_python2 DESTINATION ${PYILMBASE_OVERRIDE_PYTHON2_INSTALL_DIR})
+ endif()
+ 
+ if(TARGET Python3::Python AND
+@@ -49,4 +50,5 @@ if(TARGET Python3::Python AND
+     LIBRARY_OUTPUT_NAME "imathnumpy"
+     DEBUG_POSTFIX ""
+   )
++  install(TARGETS imathnumpy_python3 DESTINATION ${PYILMBASE_OVERRIDE_PYTHON3_INSTALL_DIR})
+ endif()
+--- openexr-2.4.3/PyIlmBase/config/ModuleDefine.cmake.orig	2021-05-17 04:53:08.000000000 +0200
++++ openexr-2.4.3/PyIlmBase/config/ModuleDefine.cmake	2023-03-12 17:10:36.214098183 +0100
+@@ -126,7 +126,7 @@ function(PYILMBASE_DEFINE_MODULE modname
+       LIBRARY_OUTPUT_NAME "${modname}"
+       DEBUG_POSTFIX ""
+     )
+-    install(TARGETS ${modname}_python2 DESTINATION ${PyIlmBase_Python2_SITEARCH_REL})
++    install(TARGETS ${modname}_python2 DESTINATION ${PYILMBASE_OVERRIDE_PYTHON2_INSTALL_DIR})
+   endif()
+ 
+   if(TARGET Python3::Python AND TARGET Boost::${PYILMBASE_BOOST_PY3_COMPONENT})
+@@ -153,6 +153,6 @@ function(PYILMBASE_DEFINE_MODULE modname
+       LIBRARY_OUTPUT_NAME "${modname}"
+       DEBUG_POSTFIX ""
+     )
+-    install(TARGETS ${modname}_python3 DESTINATION ${PyIlmBase_Python3_SITEARCH_REL})
++    install(TARGETS ${modname}_python3 DESTINATION ${PYILMBASE_OVERRIDE_PYTHON3_INSTALL_DIR})
+   endif()
+ endfunction()
