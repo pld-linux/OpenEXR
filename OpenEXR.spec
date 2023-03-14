@@ -1,25 +1,18 @@
-#
-# Conditional build:
-%bcond_with	cg	# use NVIDIA Cg compiler
-
 Summary:	High dynamic-range (HDR) image file format support libraries
 Summary(pl.UTF-8):	Biblioteki obsługujące format plików obrazu o wysokiej dynamice (HDR)
 Name:		OpenEXR
-Version:	2.4.3
+Version:	2.5.8
 Release:	1
 License:	BSD
 Group:		Libraries
 #Source0Download: https://github.com/AcademySoftwareFoundation/openexr/releases
 Source0:	https://github.com/AcademySoftwareFoundation/openexr/archive/v%{version}/openexr-%{version}.tar.gz
-# Source0-md5:	6b25476b00b0a5fd6e99b0b5f6c29022
+# Source0-md5:	92d87a37660d054516a4a7b10d91dfe7
 Patch0:		%{name}-python-install.patch
 URL:		https://openexr.com/
-%{?with_cg:BuildRequires:	OpenGL-glut-devel}
-%{?with_cg:BuildRequires:	cg-devel}
 BuildRequires:	boost-python-devel
 BuildRequires:	boost-python3-devel
 BuildRequires:	cmake >= 3.12
-BuildRequires:	fltk-gl-devel >= 1.1
 BuildRequires:	ilmbase-devel >= 2.3.0
 BuildRequires:	libstdc++-devel >= 6:5
 BuildRequires:	pkgconfig
@@ -158,31 +151,6 @@ Static IlmBase libraries.
 %description -n ilmbase-static -l pl.UTF-8
 Statyczne biblioteki IlmBase.
 
-%package -n openexr_viewers
-Summary:	Simple still OpenEXR image viewer
-Summary(pl.UTF-8):	Prosta przeglądarka nieruchomych obrazów OpenEXR
-Group:		X11/Applications/Graphics
-Requires:	%{name} = %{version}-%{release}
-
-%description -n openexr_viewers
-exrdisplay is a simple still image viewer that optionally applies
-color transforms to OpenEXR images, using CTL.
-
-%if %{with cg}
-playexr is a program that plays back OpenEXR image sequences,
-optionally with CTL support, applying rendering and display
-transforms.
-%endif
-
-%description -n openexr_viewers -l pl.UTF-8
-exrdisplay to prosta przeglądarka nieruchomych obrazów opcjonalnie
-stosująca na obrazach OpenEXR przekształcenia kolorów przy użyciu CTL.
-
-%if %{with cg}
-playexr to program odtwarzający sekwencje obrazów OpenEXR z opcjonalną
-obsługą CTL i stosowaniem przekształceń renderingu i wyświetlania.
-%endif
-
 %package -n pyilmbase-devel
 Summary:	Header files for IlmBase Python bindings
 Summary(pl.UTF-8):	Pliki nagłówkowe wiązań Pyhona do bibliotek IlmBase
@@ -272,6 +240,10 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} -C build install \
 	DESTDIR=$RPM_BUILD_ROOT
 
+# packaged as %doc
+%{__rm} $RPM_BUILD_ROOT%{_docdir}/*.pdf
+%{__rm} -r $RPM_BUILD_ROOT%{_docdir}/examples
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -290,16 +262,16 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc CHANGES.md CONTRIBUTORS.md GOVERNANCE.md LICENSE.md README.md SECURITY.md OpenEXR/PATENTS
-%attr(755,root,root) %{_libdir}/libIlmImf-2_4.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libIlmImf-2_4.so.24
-%attr(755,root,root) %{_libdir}/libIlmImfUtil-2_4.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libIlmImfUtil-2_4.so.24
+%attr(755,root,root) %{_libdir}/libIlmImf-2_5.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libIlmImf-2_5.so.26
+%attr(755,root,root) %{_libdir}/libIlmImfUtil-2_5.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libIlmImfUtil-2_5.so.26
 
 %files devel
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libIlmImf-2_4.so
+%attr(755,root,root) %{_libdir}/libIlmImf-2_5.so
 %attr(755,root,root) %{_libdir}/libIlmImf.so
-%attr(755,root,root) %{_libdir}/libIlmImfUtil-2_4.so
+%attr(755,root,root) %{_libdir}/libIlmImfUtil-2_5.so
 %attr(755,root,root) %{_libdir}/libIlmImfUtil.so
 %{_includedir}/OpenEXR/Imf*.h
 %{_includedir}/OpenEXR/OpenEXRConfig.h
@@ -308,8 +280,8 @@ rm -rf $RPM_BUILD_ROOT
 
 %files static
 %defattr(644,root,root,755)
-%{_libdir}/libIlmImf-2_4_static.a
-%{_libdir}/libIlmImfUtil-2_4_static.a
+%{_libdir}/libIlmImf-2_5_static.a
+%{_libdir}/libIlmImfUtil-2_5_static.a
 
 %files progs
 %defattr(644,root,root,755)
@@ -329,28 +301,28 @@ rm -rf $RPM_BUILD_ROOT
 %files -n ilmbase
 %defattr(644,root,root,755)
 %doc IlmBase/README.md
-%attr(755,root,root) %{_libdir}/libHalf-2_4.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libHalf-2_4.so.24
-%attr(755,root,root) %{_libdir}/libIex-2_4.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libIex-2_4.so.24
-%attr(755,root,root) %{_libdir}/libIexMath-2_4.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libIexMath-2_4.so.24
-%attr(755,root,root) %{_libdir}/libIlmThread-2_4.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libIlmThread-2_4.so.24
-%attr(755,root,root) %{_libdir}/libImath-2_4.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libImath-2_4.so.24
+%attr(755,root,root) %{_libdir}/libHalf-2_5.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libHalf-2_5.so.25
+%attr(755,root,root) %{_libdir}/libIex-2_5.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libIex-2_5.so.25
+%attr(755,root,root) %{_libdir}/libIexMath-2_5.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libIexMath-2_5.so.25
+%attr(755,root,root) %{_libdir}/libIlmThread-2_5.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libIlmThread-2_5.so.25
+%attr(755,root,root) %{_libdir}/libImath-2_5.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libImath-2_5.so.25
 
 %files -n ilmbase-devel
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libHalf-2_4.so
+%attr(755,root,root) %{_libdir}/libHalf-2_5.so
 %attr(755,root,root) %{_libdir}/libHalf.so
-%attr(755,root,root) %{_libdir}/libIex-2_4.so
+%attr(755,root,root) %{_libdir}/libIex-2_5.so
 %attr(755,root,root) %{_libdir}/libIex.so
-%attr(755,root,root) %{_libdir}/libIexMath-2_4.so
+%attr(755,root,root) %{_libdir}/libIexMath-2_5.so
 %attr(755,root,root) %{_libdir}/libIexMath.so
-%attr(755,root,root) %{_libdir}/libIlmThread-2_4.so
+%attr(755,root,root) %{_libdir}/libIlmThread-2_5.so
 %attr(755,root,root) %{_libdir}/libIlmThread.so
-%attr(755,root,root) %{_libdir}/libImath-2_4.so
+%attr(755,root,root) %{_libdir}/libImath-2_5.so
 %attr(755,root,root) %{_libdir}/libImath.so
 %dir %{_includedir}/OpenEXR
 %{_includedir}/OpenEXR/Iex*.h
@@ -363,32 +335,25 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n ilmbase-static
 %defattr(644,root,root,755)
-%{_libdir}/libHalf-2_4_static.a
-%{_libdir}/libIex-2_4_static.a
-%{_libdir}/libIexMath-2_4_static.a
-%{_libdir}/libIlmThread-2_4_static.a
-%{_libdir}/libImath-2_4_static.a
-
-%files -n openexr_viewers
-%defattr(644,root,root,755)
-%doc OpenEXR_Viewers/README.md
-%attr(755,root,root) %{_bindir}/exrdisplay
-%if %{with cg}
-%attr(755,root,root) %{_bindir}/playexr
-%endif
+%{_libdir}/libHalf-2_5_static.a
+%{_libdir}/libIex-2_5_static.a
+%{_libdir}/libIexMath-2_5_static.a
+%{_libdir}/libIlmThread-2_5_static.a
+%{_libdir}/libImath-2_5_static.a
 
 %files -n pyilmbase-devel
 %defattr(644,root,root,755)
 %{_includedir}/OpenEXR/PyIex*.h
 %{_includedir}/OpenEXR/PyImath*.h
+%{_pkgconfigdir}/PyIlmBase.pc
 %{_libdir}/cmake/PyIlmBase
 
 %files -n python-pyilmbase
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libPyIex_Python2_*-2_4.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libPyIex_Python2_*-2_4.so.24
-%attr(755,root,root) %{_libdir}/libPyImath_Python2_*-2_4.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libPyImath_Python2_*-2_4.so.24
+%attr(755,root,root) %{_libdir}/libPyIex_Python2_*-2_5.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libPyIex_Python2_*-2_5.so.25
+%attr(755,root,root) %{_libdir}/libPyImath_Python2_*-2_5.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libPyImath_Python2_*-2_5.so.25
 %attr(755,root,root) %{py_sitedir}/iex.so
 %attr(755,root,root) %{py_sitedir}/imath.so
 %attr(755,root,root) %{py_sitedir}/imathnumpy.so
@@ -400,10 +365,10 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n python3-pyilmbase
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libPyIex_Python3_*-2_4.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libPyIex_Python3_*-2_4.so.24
-%attr(755,root,root) %{_libdir}/libPyImath_Python3_*-2_4.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libPyImath_Python3_*-2_4.so.24
+%attr(755,root,root) %{_libdir}/libPyIex_Python3_*-2_5.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libPyIex_Python3_*-2_5.so.25
+%attr(755,root,root) %{_libdir}/libPyImath_Python3_*-2_5.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libPyImath_Python3_*-2_5.so.25
 %attr(755,root,root) %{py3_sitedir}/iex.so
 %attr(755,root,root) %{py3_sitedir}/imath.so
 %attr(755,root,root) %{py3_sitedir}/imathnumpy.so
