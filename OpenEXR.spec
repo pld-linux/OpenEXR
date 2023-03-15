@@ -1,23 +1,26 @@
 Summary:	High dynamic-range (HDR) image file format support libraries
 Summary(pl.UTF-8):	Biblioteki obsługujące format plików obrazu o wysokiej dynamice (HDR)
 Name:		OpenEXR
-Version:	3.1.4
+Version:	3.1.6
 Release:	1
 License:	BSD
 Group:		Libraries
 #Source0Download: https://github.com/AcademySoftwareFoundation/openexr/releases
 Source0:	https://github.com/AcademySoftwareFoundation/openexr/archive/v%{version}/openexr-%{version}.tar.gz
-# Source0-md5:	e990be1ff765797bc2d93a8060e1c1f2
-URL:		https://www.openexr.com/
-BuildRequires:	Imath-devel
-BuildRequires:	autoconf >= 2.50
-BuildRequires:	automake >= 1.6.3
+# Source0-md5:	da5daf4d7954c034921e7201bf815938
+URL:		https://openexr.com/
+BuildRequires:	Imath-devel >= 3.1
+BuildRequires:	cmake >= 3.12
+BuildRequires:	doxygen
 BuildRequires:	libstdc++-devel >= 6:5
-BuildRequires:	libtool >= 2:1.5
 BuildRequires:	pkgconfig
 BuildRequires:	python3-breathe
+BuildRequires:	python3-sphinx_press_theme
+BuildRequires:	rpm-build >= 4.6
+BuildRequires:	rpmbuild(macros) >= 1.605
+BuildRequires:	sphinx-pdg >= 2
 BuildRequires:	zlib-devel
-Obsoletes:	ilmbase < 2.5.3
+Obsoletes:	ilmbase < 3
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -42,10 +45,11 @@ Summary:	Header files for OpenEXR libraries
 Summary(pl.UTF-8):	Pliki nagłówkowe bibliotek OpenEXR
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
+Requires:	Imath-devel >= 3.1
 Requires:	libstdc++-devel >= 6:5
 Requires:	zlib-devel
 Provides:	ilmbase-devel = %{version}-%{release}
-Obsoletes:	ilmbase-devel < 2.5.3
+Obsoletes:	ilmbase-devel < 3
 
 %description devel
 Header files for OpenEXR libraries.
@@ -69,6 +73,7 @@ Narzędzia do obrazów OpenEXR.
 Summary:	OpenEXR documentation
 Summary(pl.UTF-8):	Dokumentacja do OpenEXR
 Group:		Documentation
+BuildArch:	noarch
 
 %description doc
 OpenEXR documentation describing file format, library etc.
@@ -83,7 +88,8 @@ Dokumentacja do OpenEXR, opisująca format pliku, bibliotekę itd.
 mkdir -p build
 cd build
 %cmake .. \
-	-DDOCS=ON
+	-DBUILD_DOCS=ON \
+	-DINSTALL_DOCS=OFF
 
 %{__make}
 
@@ -93,7 +99,7 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} -C build install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-%{__rm} -r $RPM_BUILD_ROOT%{_docdir}/{examples,sphinx}
+%{__rm} -r $RPM_BUILD_ROOT%{_docdir}/examples
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -138,5 +144,4 @@ rm -rf $RPM_BUILD_ROOT
 
 %files doc
 %defattr(644,root,root,755)
-%doc build/docs/sphinx/*
-%doc build/docs/sphinx/.doctrees
+%doc build/docs/sphinx/{_images,_static,*.html,*.js}
