@@ -1,18 +1,19 @@
 Summary:	High dynamic-range (HDR) image file format support libraries
 Summary(pl.UTF-8):	Biblioteki obsługujące format plików obrazu o wysokiej dynamice (HDR)
 Name:		OpenEXR
-Version:	3.1.13
+Version:	3.4.4
 Release:	1
 License:	BSD
 Group:		Libraries
 #Source0Download: https://github.com/AcademySoftwareFoundation/openexr/releases
 Source0:	https://github.com/AcademySoftwareFoundation/openexr/archive/v%{version}/openexr-%{version}.tar.gz
-# Source0-md5:	1006112ee8e02eb10061248cef85c7fd
+# Source0-md5:	ad8587c4a64bf423c387734e85d17432
 URL:		https://openexr.com/
 BuildRequires:	Imath-devel >= 3.1
 BuildRequires:	cmake >= 3.12
 BuildRequires:	doxygen
 BuildRequires:	libstdc++-devel >= 6:5
+BuildRequires:	openjph-devel
 BuildRequires:	pkgconfig
 BuildRequires:	python3-breathe
 BuildRequires:	python3-sphinx_press_theme
@@ -20,6 +21,7 @@ BuildRequires:	rpm-build >= 4.6
 BuildRequires:	rpmbuild(macros) >= 1.605
 BuildRequires:	sphinx-pdg >= 2
 BuildRequires:	zlib-devel
+Obsoletes:	OpenEXR-doc < 3.4.4
 Obsoletes:	ilmbase < 3
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -69,18 +71,6 @@ OpenEXR utilities.
 %description progs -l pl.UTF-8
 Narzędzia do obrazów OpenEXR.
 
-%package doc
-Summary:	OpenEXR documentation
-Summary(pl.UTF-8):	Dokumentacja do OpenEXR
-Group:		Documentation
-BuildArch:	noarch
-
-%description doc
-OpenEXR documentation describing file format, library etc.
-
-%description doc -l pl.UTF-8
-Dokumentacja do OpenEXR, opisująca format pliku, bibliotekę itd.
-
 %prep
 %setup -q -n openexr-%{version}
 
@@ -88,8 +78,7 @@ Dokumentacja do OpenEXR, opisująca format pliku, bibliotekę itd.
 mkdir -p build
 cd build
 %cmake .. \
-	-DBUILD_DOCS=ON \
-	-DINSTALL_DOCS=OFF
+	-DOPENEXR_INSTALL_DOCS=ON
 
 %{__make}
 
@@ -110,28 +99,30 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc CHANGES.md CODEOWNERS LICENSE.md PATENTS README.md SECURITY.md
-%attr(755,root,root) %{_libdir}/libIex-3_1.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libIex-3_1.so.30
-%attr(755,root,root) %{_libdir}/libIlmThread-3_1.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libIlmThread-3_1.so.30
-%attr(755,root,root) %{_libdir}/libOpenEXR-3_1.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libOpenEXR-3_1.so.30
-%attr(755,root,root) %{_libdir}/libOpenEXRCore-3_1.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libOpenEXRCore-3_1.so.30
-%attr(755,root,root) %{_libdir}/libOpenEXRUtil-3_1.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libOpenEXRUtil-3_1.so.30
+%{_libdir}/libIex-3_4.so.*.*.*
+%ghost %{_libdir}/libIex-3_4.so.33
+%{_libdir}/libIlmThread-3_4.so.*.*.*
+%ghost %{_libdir}/libIlmThread-3_4.so.33
+%{_libdir}/libOpenEXR-3_4.so.*.*.*
+%ghost %{_libdir}/libOpenEXR-3_4.so.33
+%{_libdir}/libOpenEXRCore-3_4.so.*.*.*
+%ghost %{_libdir}/libOpenEXRCore-3_4.so.33
+%{_libdir}/libOpenEXRUtil-3_4.so.*.*.*
+%ghost %{_libdir}/libOpenEXRUtil-3_4.so.33
 
 %files devel
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libIex*.so
-%attr(755,root,root) %{_libdir}/libIlmThread*.so
-%attr(755,root,root) %{_libdir}/libOpenEXR*.so
+%{_libdir}/libIex*.so
+%{_libdir}/libIlmThread*.so
+%{_libdir}/libOpenEXR*.so
 %{_includedir}/OpenEXR
 %{_pkgconfigdir}/OpenEXR.pc
 %{_libdir}/cmake/OpenEXR
 
 %files progs
 %defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/exrmanifest
+%attr(755,root,root) %{_bindir}/exrmetrics
 %attr(755,root,root) %{_bindir}/exrenvmap
 %attr(755,root,root) %{_bindir}/exrheader
 %attr(755,root,root) %{_bindir}/exrmakepreview
@@ -141,7 +132,15 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/exrstdattr
 %attr(755,root,root) %{_bindir}/exr2aces
 %attr(755,root,root) %{_bindir}/exrinfo
-
-%files doc
-%defattr(644,root,root,755)
-%doc build/docs/sphinx/{_images,_static,*.html,*.js}
+%{_mandir}/man1/exr2aces.1*
+%{_mandir}/man1/exrcheck.1*
+%{_mandir}/man1/exrenvmap.1*
+%{_mandir}/man1/exrheader.1*
+%{_mandir}/man1/exrinfo.1*
+%{_mandir}/man1/exrmakepreview.1*
+%{_mandir}/man1/exrmaketiled.1*
+%{_mandir}/man1/exrmanifest.1*
+%{_mandir}/man1/exrmetrics.1*
+%{_mandir}/man1/exrmultipart.1*
+%{_mandir}/man1/exrmultiview.1*
+%{_mandir}/man1/exrstdattr.1*
