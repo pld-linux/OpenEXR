@@ -1,6 +1,6 @@
 #
 # Conditional build:
-%bcond_with	apidocs		# API documentation in HTML format
+%bcond_without	apidocs		# API documentation in HTML format
 %bcond_with	tbb		# TBB threading in IlmThreadPool
 
 Summary:	High dynamic-range (HDR) image file format support libraries
@@ -17,6 +17,7 @@ URL:		https://openexr.com/
 BuildRequires:	Imath-devel >= 3.1
 BuildRequires:	cmake >= 3.14
 %{?with_apidocs:BuildRequires:	doxygen}
+BuildRequires:	help2man
 BuildRequires:	libdeflate-devel
 BuildRequires:	libstdc++-devel >= 6:7
 BuildRequires:	openjph-devel >= 0.21.0
@@ -28,7 +29,6 @@ BuildRequires:	rpmbuild(macros) >= 1.605
 %{?with_apidocs:BuildRequires:	sphinx-pdg >= 2}
 %{?with_tbb:BuildRequires:	tbb-devel}
 BuildRequires:	zlib-devel
-Obsoletes:	OpenEXR-doc < 3.4.4
 Obsoletes:	ilmbase < 3
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -80,11 +80,24 @@ OpenEXR utilities.
 %description progs -l pl.UTF-8
 Narzędzia do obrazów OpenEXR.
 
+%package doc
+Summary:	OpenEXR documentation
+Summary(pl.UTF-8):	Dokumentacja do OpenEXR
+Group:		Documentation
+BuildArch:	noarch
+
+%description doc
+OpenEXR documentation describing file format, library etc.
+
+%description doc -l pl.UTF-8
+Dokumentacja do OpenEXR, opisująca format pliku, bibliotekę itd.
+
 %prep
 %setup -q -n openexr-%{version}
 
 %build
 %cmake -B build \
+	%{?with_apidocs:-DBUILD_WEBSITE=ON} \
 	-DOPENEXR_INSTALL_DOCS=ON \
 	%{?with_tbb:-DOPENEXR_USE_TBB=ON}
 
@@ -152,3 +165,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/exrmultipart.1*
 %{_mandir}/man1/exrmultiview.1*
 %{_mandir}/man1/exrstdattr.1*
+
+%if %{with apidocs}
+%files doc
+%defattr(644,root,root,755)
+%doc build/website/sphinx/{_downloads,_images,_static,bin,test_images,*.html,*.js}
+%endif
