@@ -1,3 +1,8 @@
+#
+# Conditional build:
+%bcond_with	apidocs		# API documentation in HTML format
+%bcond_with	tbb		# TBB threading in IlmThreadPool
+
 Summary:	High dynamic-range (HDR) image file format support libraries
 Summary(pl.UTF-8):	Biblioteki obsługujące format plików obrazu o wysokiej dynamice (HDR)
 Name:		OpenEXR
@@ -10,16 +15,18 @@ Source0:	https://github.com/AcademySoftwareFoundation/openexr/archive/v%{version
 # Source0-md5:	ad8587c4a64bf423c387734e85d17432
 URL:		https://openexr.com/
 BuildRequires:	Imath-devel >= 3.1
-BuildRequires:	cmake >= 3.12
-BuildRequires:	doxygen
-BuildRequires:	libstdc++-devel >= 6:5
-BuildRequires:	openjph-devel
+BuildRequires:	cmake >= 3.14
+%{?with_apidocs:BuildRequires:	doxygen}
+BuildRequires:	libdeflate-devel
+BuildRequires:	libstdc++-devel >= 6:7
+BuildRequires:	openjph-devel >= 0.21.0
 BuildRequires:	pkgconfig
-BuildRequires:	python3-breathe
-BuildRequires:	python3-sphinx_press_theme
+%{?with_apidocs:BuildRequires:	python3-breathe}
+%{?with_apidocs:BuildRequires:	python3-sphinx_press_theme}
 BuildRequires:	rpm-build >= 4.6
 BuildRequires:	rpmbuild(macros) >= 1.605
-BuildRequires:	sphinx-pdg >= 2
+%{?with_apidocs:BuildRequires:	sphinx-pdg >= 2}
+%{?with_tbb:BuildRequires:	tbb-devel}
 BuildRequires:	zlib-devel
 Obsoletes:	OpenEXR-doc < 3.4.4
 Obsoletes:	ilmbase < 3
@@ -48,7 +55,9 @@ Summary(pl.UTF-8):	Pliki nagłówkowe bibliotek OpenEXR
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	Imath-devel >= 3.1
-Requires:	libstdc++-devel >= 6:5
+Requires:	libdeflate-devel
+Requires:	libstdc++-devel >= 6:7
+Requires:	openjph-devel >= 0.21.0
 Requires:	zlib-devel
 Provides:	ilmbase-devel = %{version}-%{release}
 Obsoletes:	ilmbase-devel < 3
@@ -75,12 +84,11 @@ Narzędzia do obrazów OpenEXR.
 %setup -q -n openexr-%{version}
 
 %build
-mkdir -p build
-cd build
-%cmake .. \
-	-DOPENEXR_INSTALL_DOCS=ON
+%cmake -B build \
+	-DOPENEXR_INSTALL_DOCS=ON \
+	%{?with_tbb:-DOPENEXR_USE_TBB=ON}
 
-%{__make}
+%{__make} -C build
 
 %install
 rm -rf $RPM_BUILD_ROOT
