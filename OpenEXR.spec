@@ -60,6 +60,7 @@ Requires:	libstdc++-devel >= 6:7
 Requires:	openjph-devel >= 0.21.0
 Requires:	zlib-devel
 Provides:	ilmbase-devel = %{version}-%{release}
+Obsoletes:	OpenEXR-static < 3
 Obsoletes:	ilmbase-devel < 3
 
 %description devel
