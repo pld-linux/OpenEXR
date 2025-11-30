@@ -1,6 +1,7 @@
 #
 # Conditional build:
 %bcond_without	apidocs		# API documentation in HTML format
+%bcond_without	python3		# CPython 3.x bindings
 %bcond_with	tbb		# TBB threading in IlmThreadPool
 
 Summary:	High dynamic-range (HDR) image file format support libraries
@@ -15,13 +16,18 @@ Source0:	https://github.com/AcademySoftwareFoundation/openexr/archive/v%{version
 # Source0-md5:	ad8587c4a64bf423c387734e85d17432
 URL:		https://openexr.com/
 BuildRequires:	Imath-devel >= 3.1
-BuildRequires:	cmake >= 3.14
+BuildRequires:	cmake >= 3.17
 %{?with_apidocs:BuildRequires:	doxygen}
 BuildRequires:	help2man
 BuildRequires:	libdeflate-devel
 BuildRequires:	libstdc++-devel >= 6:7
 BuildRequires:	openjph-devel >= 0.21.0
 BuildRequires:	pkgconfig
+%if %{with python3}
+BuildRequires:	python3-devel >= 1:3.7
+BuildRequires:	python3-numpy-devel >= 1.7.0
+BuildRequires:	python3-pybind11
+%endif
 %{?with_apidocs:BuildRequires:	python3-breathe}
 %{?with_apidocs:BuildRequires:	python3-sphinx_press_theme}
 BuildRequires:	rpm-build >= 4.6
@@ -93,6 +99,19 @@ OpenEXR documentation describing file format, library etc.
 %description doc -l pl.UTF-8
 Dokumentacja do OpenEXR, opisująca format pliku, bibliotekę itd.
 
+%package -n python3-OpenEXR
+Summary:	Python bindings for OpenEXR library
+Summary(pl.UTF-8):	Wiązania Pythona do biblioteki OpenEXR
+Group:		Libraries/Python
+Requires:	%{name} = %{version}-%{release}
+Requires:	python3-numpy >= 1.7.0
+
+%description -n python3-OpenEXR
+Python bindings for OpenEXR library.
+
+%description -n python3-OpenEXR -l pl.UTF-8
+Wiązania Pythona do biblioteki OpenEXR.
+
 %prep
 %setup -q -n openexr-%{version}
 
@@ -100,7 +119,12 @@ Dokumentacja do OpenEXR, opisująca format pliku, bibliotekę itd.
 %cmake -B build \
 	%{?with_apidocs:-DBUILD_WEBSITE=ON} \
 	-DOPENEXR_INSTALL_DOCS=ON \
-	%{?with_tbb:-DOPENEXR_USE_TBB=ON}
+	%{?with_tbb:-DOPENEXR_USE_TBB=ON} \
+%if %{with python3}
+	-DOPENEXR_BUILD_PYTHON=ON \
+	-DSKBUILD=ON \
+	-DSKBUILD_PLATLIB_DIR=%{py3_sitedir}
+%endif
 
 %{__make} -C build
 
@@ -111,6 +135,11 @@ rm -rf $RPM_BUILD_ROOT
 	DESTDIR=$RPM_BUILD_ROOT
 
 %{__rm} -r $RPM_BUILD_ROOT%{_docdir}/examples
+
+%if %{with python3}
+%py3_comp $RPM_BUILD_ROOT%{py3_sitedir}
+%py3_ocomp $RPM_BUILD_ROOT%{py3_sitedir}
+%endif
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -171,4 +200,12 @@ rm -rf $RPM_BUILD_ROOT
 %files doc
 %defattr(644,root,root,755)
 %doc build/website/sphinx/{_downloads,_images,_static,bin,test_images,*.html,*.js}
+%endif
+
+%if %{with python3}
+%files -n python3-OpenEXR
+%defattr(644,root,root,755)
+%{py3_sitedir}/Imath.py
+%{py3_sitedir}/OpenEXR.cpython-*.so
+%{py3_sitedir}/__pycache__/Imath.cpython-*.py[co]
 %endif
