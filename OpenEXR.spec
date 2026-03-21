@@ -7,13 +7,14 @@
 Summary:	High dynamic-range (HDR) image file format support libraries
 Summary(pl.UTF-8):	Biblioteki obsługujące format plików obrazu o wysokiej dynamice (HDR)
 Name:		OpenEXR
-Version:	3.4.4
-Release:	3
+Version:	3.4.7
+Release:	1
 License:	BSD
 Group:		Libraries
 #Source0Download: https://github.com/AcademySoftwareFoundation/openexr/releases
 Source0:	https://github.com/AcademySoftwareFoundation/openexr/archive/v%{version}/openexr-%{version}.tar.gz
-# Source0-md5:	ad8587c4a64bf423c387734e85d17432
+# Source0-md5:	863690c31200160586b4bfa4cc8cefeb
+Patch0:		%{name}-sphinx.patch
 URL:		https://openexr.com/
 BuildRequires:	Imath-devel >= 3.1
 BuildRequires:	cmake >= 3.17
@@ -21,7 +22,7 @@ BuildRequires:	cmake >= 3.17
 BuildRequires:	help2man
 BuildRequires:	libdeflate-devel
 BuildRequires:	libstdc++-devel >= 6:7
-BuildRequires:	openjph-devel >= 0.21.0
+BuildRequires:	openjph-devel >= 0.23.0
 BuildRequires:	pkgconfig
 %if %{with python3}
 BuildRequires:	python3-devel >= 1:3.7
@@ -63,7 +64,7 @@ Requires:	%{name} = %{version}-%{release}
 Requires:	Imath-devel >= 3.1
 Requires:	libdeflate-devel
 Requires:	libstdc++-devel >= 6:7
-Requires:	openjph-devel >= 0.21.0
+Requires:	openjph-devel >= 0.23.0
 Requires:	zlib-devel
 Provides:	ilmbase-devel = %{version}-%{release}
 Obsoletes:	OpenEXR-static < 3
@@ -114,6 +115,7 @@ Wiązania Pythona do biblioteki OpenEXR.
 
 %prep
 %setup -q -n openexr-%{version}
+%patch -P0 -p1
 
 %build
 %cmake -B build \
