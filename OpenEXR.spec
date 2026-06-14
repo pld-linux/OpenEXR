@@ -7,13 +7,13 @@
 Summary:	High dynamic-range (HDR) image file format support libraries
 Summary(pl.UTF-8):	Biblioteki obsługujące format plików obrazu o wysokiej dynamice (HDR)
 Name:		OpenEXR
-Version:	3.4.7
+Version:	3.4.12
 Release:	1
 License:	BSD
 Group:		Libraries
 #Source0Download: https://github.com/AcademySoftwareFoundation/openexr/releases
 Source0:	https://github.com/AcademySoftwareFoundation/openexr/archive/v%{version}/openexr-%{version}.tar.gz
-# Source0-md5:	863690c31200160586b4bfa4cc8cefeb
+# Source0-md5:	032500efd70ff884fee761a923c9d635
 Patch0:		%{name}-sphinx.patch
 URL:		https://openexr.com/
 BuildRequires:	Imath-devel >= 3.1
@@ -122,6 +122,7 @@ Wiązania Pythona do biblioteki OpenEXR.
 	%{?with_apidocs:-DBUILD_WEBSITE=ON} \
 	-DOPENEXR_INSTALL_DOCS=ON \
 	%{?with_tbb:-DOPENEXR_USE_TBB=ON} \
+	-DSPHINX_OPTS="" \
 %if %{with python3}
 	-DOPENEXR_BUILD_PYTHON=ON \
 	-DSKBUILD=ON \

@@ -1,18 +1,4 @@
-openexr-3.4.7/website/latest_news_title.rst: syntax errors due to git conflict markers
 openexr-3.4.7/website/news.rst:284: WARNING: Duplicate explicit target name: "latestnewsend". [docutils]
---- openexr-3.4.7/website/latest_news_title.rst.orig	2026-03-14 21:45:40.000000000 +0100
-+++ openexr-3.4.7/website/latest_news_title.rst	2026-03-21 17:49:12.072120268 +0100
-@@ -1,10 +1,4 @@
- ..
-   SPDX-License-Identifier: BSD-3-Clause
--<<<<<<< HEAD
--  Copyright Contributors to the OpenEXR Project.
--.. |latest-news-title| replace:: **November  4, 2025 - OpenEXR 3.4.3 Released**
--
--=======
-   Copyright (c) Contributors to the OpenEXR Project.
- .. |latest-news-title| replace:: **February 21, 2026 - OpenEXR 3.4.5 Released**
-->>>>>>> ff22ba3a (Add news and release notes for v3.4.5 and v3.3.7 (#2252))
 --- openexr-3.4.7/website/news.rst.orig	2026-03-14 21:45:40.000000000 +0100
 +++ openexr-3.4.7/website/news.rst	2026-03-21 17:55:42.963335962 +0100
 @@ -281,8 +281,6 @@ Changes to the OpenEXR Python module:
